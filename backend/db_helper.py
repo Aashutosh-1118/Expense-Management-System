@@ -8,17 +8,22 @@
 import mysql.connector
 from contextlib import contextmanager
 from logging_setup import setup_logger
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+connection = mysql.connector.connect(
+    host=os.getenv("DB_HOST"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
+    database=os.getenv("DB_NAME"),
+)
 
 logger = setup_logger('db_helper')
 
 @contextmanager
 def get_db_cursor(commit=False):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="@february1118",
-        database="expense_manager",
-    )
     cursor = connection.cursor(dictionary=True)
     yield cursor
     if commit:
