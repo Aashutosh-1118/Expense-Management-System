@@ -1,5 +1,7 @@
+.venv/
+node_modules/
 .env
 __pycache__/
-
-# IDE and Editor files
-.idea/
+*.pyc
+.pytest_cache/
+server.log
